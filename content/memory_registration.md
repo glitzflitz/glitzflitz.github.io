@@ -178,7 +178,7 @@ struct kvm_memslots {
 ```
 
 The relation between memory slot, address space and kvm struct is something like this  ->
-[![memory-registration.jpg](https://raw.githubusercontent.com/glitzflitz/glitzflitz.github.io/main/static/images/memory_registration.jpg)]
+![memory-registration.jpg](https://raw.githubusercontent.com/glitzflitz/glitzflitz.github.io/main/static/images/memory_registration.jpg)
 (please excuse my below average krita drawing skills)
 
 ## Memory registration process
