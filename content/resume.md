@@ -39,7 +39,7 @@ In my personal time, I take time to explore new technologies that interest me, w
 
 * [GlitzBoy, C](https://github.com/glitzflitz/GlitzBoy) - A fast cross platform Gamboy(DMG) emulator written in C. GlitzBoy supports sound, several hardware types and Real Time Clock(RTC)
 * vhost-user-scsi, Rust - Implemented an emulated SCSI backend to be used in linux kvm based hypervisors for virtio-scsi using vhost-user protocol
-* [Game of Life, Rust](https://github.com/glitzflitz/gameoflife) - A one hour introduction to embedded systems for non-engineers
+* [Game of Life, Rust](https://github.com/glitzflitz/gameoflife) - Conway's game of life that can run on bare metal written in Rust.
 * [Linux Kernel Patches](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=grep&q=amey+narkhede)
 
 
