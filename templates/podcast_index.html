@@ -1,0 +1,57 @@
+{% extends "base_layout.html" %}
+
+{% block twitter_meta %}
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@bitshiftmask" />
+  <meta name="twitter:title" content="Chats with James Podcast" />
+  <meta name="twitter:description" content="All episodes of the Chats with James podcast" />
+  <meta name="twitter:image" content="https://delivery.jamescdn.com/logo0.png" />
+{%endblock twitter_meta %}
+
+{% block content %}
+    <h1>Chats With James Podcast</h1>
+
+    <p>Chats with James is a podcast discussing everything
+    that James or his guests are passionate about.</p>
+
+    <p>Embedded Systems, the Rust Programming Language, and
+    a variety of other technical topics are the most commonly
+    discussed items.</p>
+
+    <p>New episodes are released every Tuesday.</p>
+
+    <ul>
+      <li><a href="https://open.spotify.com/show/3rQ1qbFbYglw2K3zJWqoe3">Podcast on Spotify</a></li>
+      <li><a href="https://apple.co/39mkblq">Podcast on Apple Podcasts</a></li>
+      <li><a href="https://jamesmunns.com/podcast-feed-m4a.xml">Podcast RSS Feed: M4A format</a></li>
+      <li><a href="https://jamesmunns.com/podcast-feed-flac.xml">Podcast RSS Feed: FLAC format</a></li>
+      <li><a href="https://jamesmunns.com/podcast-feed-mp3.xml">Podcast RSS Feed: MP3 format</a></li>
+    </ul>
+
+    <h2>Episodes</h2>
+    <hr>
+
+    <div class="posts">
+        {% for page in paginator.pages %}
+          <div class="post">
+            <h1 class="post-title">
+              <a href="{{ page.permalink }}">
+                {{ page.title }}
+              </a>
+            </h1>
+            <span class="post-date">{{ page.date | date(format="%Y-%m-%d") }}</span>
+            <hr>
+            {{ page.summary | safe }}
+            <b>
+              <a href="{{ page.permalink }}">
+                ...read more
+              </a>
+            </b>
+          </div>
+        {% endfor %}
+    {% if paginator.previous %}<a href="{{ paginator.previous }}"><b>< < Back</b>{% endif %}
+    {% if paginator.next and paginator.previous %}|{% endif %}
+    {% if paginator.next %}<a href="{{ paginator.next }}"><b>Next > ></b>{% endif %}
+    </div>
+{% endblock content %}
+

@@ -1,20 +1,24 @@
+# NOTE: This was built with
+# `gutenberg 0.3.3`
+
+# The URL the site will be built for
 base_url = "https://glitzflitz.github.io"
+
+title = "Amey's Midnight Musings"
+description = "Incredibly niche and unrelatable content"
 
 compile_sass = true
 
 highlight_code = true
 
-title = "Amey's Midnight Musings"
-description = "Incredibly niche and unrelatable content"
-
 build_search_index = true
 
 theme = "hyde"
+
+generate_rss = true
+
 [extra]
-#hyde_reverse = true
+# Put all your custom variables here
 hyde_links = [
-    {url = "https://glitzflitz.github.io/about/", name = "About"},
-    {url = "https://twitter.com/glitzflitz", name = "Twitter"},
-    {url = "https://github.com/glitzflitz", name = "Github"},
-    {url = "mailto:ameynarkhede03@gmail.com", name = "Email"},
 ]
+hyde_theme = "theme-base-1f"
