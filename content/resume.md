@@ -35,7 +35,7 @@ template = "static_page.html"
 
 ## **Personal Projects**
 
-In my personal time, I take time to explore new technologies that interest me, writing or about areas I am knowledgeable in or currently learning, and contribute back to open source projects. My notable projects include:
+In my personal time, I take time to explore new technologies that interest me, writing about areas I am knowledgeable in or currently learning, and contribute back to open source projects. My notable projects include:
 
 * [GlitzBoy, C](https://github.com/glitzflitz/GlitzBoy) - A fast cross platform Gamboy(DMG) emulator written in C. GlitzBoy supports sound, several hardware types and Real Time Clock(RTC)
 * vhost-user-scsi, Rust - Implemented an emulated SCSI backend to be used in linux kvm based hypervisors for virtio-scsi using vhost-user protocol
