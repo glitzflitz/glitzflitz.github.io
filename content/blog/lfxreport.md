@@ -45,7 +45,7 @@ pci_reset_function()
 ```
 
 ## Proposed Change
-The patch introduces two new bitmaps `reset_methods` which keeps track of device supported reset methods and
+The [patch series](https://www.spinics.net/lists/linux-pci/msg105800.html) introduces two new bitmaps `reset_methods` which keeps track of device supported reset methods and
 `reset_methods_enabled` to keep track of user preferred and device supported reset method in `struct pci_dev`.
 We can read new `reset_method` sysfs attribute to get the device supported reset methods which displays
 preferred reset methods in square brackets. Initially when user has not set any preferred reset method all
@@ -61,7 +61,7 @@ device supported reset methods are marked as preferred according to existing pol
 flr [bus] #                                                                                                                                                                                  ➜  ~
 ```
 Writing `none` to `reset_method` attribute will disable device from being reset while
-writing `default` will return to original value.
+writing `default` will return to original value. </br>
 
 ## Acknowledgements
 During my first two weeks of mentorship period I learned a lot from my mentor Alex who patiently
