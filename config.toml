@@ -5,13 +5,13 @@ compile_sass = true
 highlight_code = true
 
 title = "Amey's Midnight Musings"
-description = "Niche and unrelatable content"
+description = "Incredibly niche and unrelatable content"
 
 build_search_index = true
 
 theme = "hyde"
 [extra]
-hyde_reverse = true
+#hyde_reverse = true
 hyde_links = [
     {url = "about/", name = "About"},
     {url = "https://twitter.com/glitzflitz", name = "Twitter"},
