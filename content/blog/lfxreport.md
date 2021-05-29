@@ -1,6 +1,6 @@
 +++
 title = "A brief introduction to the expose and manage PCI device reset project"
-date = 2021-03-15
+date = 2021-05-25
 in_search_index = true
 draft = false
 template = "blog_post.html"
@@ -45,25 +45,29 @@ pci_reset_function()
 ```
 
 ## Proposed Change
-The [patch series](https://www.spinics.net/lists/linux-pci/msg105800.html) introduces two new bitmaps `reset_methods` which keeps track of device supported reset methods and
-`reset_methods_enabled` to keep track of user preferred and device supported reset method in `struct pci_dev`.
-We can read new `reset_method` sysfs attribute to get the device supported reset methods which displays
-preferred reset methods in square brackets. Initially when user has not set any preferred reset method all
-device supported reset methods are marked as preferred according to existing policy.
+The [patch series](https://lore.kernel.org/linux-pci/20210529192527.2708-1-ameynarkhede03@gmail.com/) introduces a new byte array in `struct pci_dev`
+to keep track of ordering of device supported reset methods.
+Initially when user has not set any preferred reset method or ordering of multiple reset methods,
+device supported reset methods are ordered by exisiting policy.
 ```
  ➜  ~ cat /sys/bus/pci/devices/0000:02:00.0/reset_method
-[flr] [bus] #
+flr,bus
  ```
  Writing any of the supported device reset method enables that method
  ```
-➜  ~ echo bus > /sys/bus/pci/devices/0000:02:00.0/reset_method
+➜  ~ echo bus,flr > /sys/bus/pci/devices/0000:02:00.0/reset_method
 ➜  ~ cat /sys/bus/pci/devices/0000:02:00.0/reset_method
-flr [bus] #                                                                                                                                                                                  ➜  ~
+bus,flr                                                                                                                                                                                  ➜  ~
 ```
-Writing `none` to `reset_method` attribute will disable device from being reset while
-writing `default` will return to original value. </br>
+Writing empty string to `reset_method` attribute will disable device from being reset while
+writing `default` will return to original value. To actually reset the device write
+`1` to exisiting `reset` sysfs attribute.
+ ```
+➜  ~ echo 1 > /sys/bus/pci/devices/0000:02:00.0/reset
+```
+</br>
 
 ## Acknowledgements
-During my first two weeks of mentorship period I learned a lot from my mentor Alex who patiently
+During this LFX mentorship period I learned a lot from my mentor Alex who patiently
 explained me all the details including small and basic things while encouraging me to try different
 approaches. I would also like to thank Raphael for his time to review the patches.
