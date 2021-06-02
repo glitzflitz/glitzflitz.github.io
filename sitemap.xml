@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://glitzflitz.github.io/</loc>
+    </url>
+    <url>
+        <loc>https://glitzflitz.github.io/about/</loc>
+    </url>
+    <url>
+        <loc>https://glitzflitz.github.io/blog/</loc>
+    </url>
+    <url>
+        <loc>https://glitzflitz.github.io/blog/lfxreport/</loc>
+        <lastmod>2021-05-25</lastmod>
+    </url>
+    <url>
+        <loc>https://glitzflitz.github.io/blog/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://glitzflitz.github.io/chats/</loc>
+    </url>
+    <url>
+        <loc>https://glitzflitz.github.io/resume/</loc>
+    </url>
+</urlset>

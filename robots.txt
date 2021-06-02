@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://glitzflitz.github.io/sitemap.xml
