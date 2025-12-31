@@ -7,11 +7,10 @@ template = "static_page.html"
 
 ## Hey, I'm Amey. Thanks for looking!
 
-I'm a recent CS grad who is interested in systems programming mainly in virtualization.
+I'm a Software Engineer at AWS mainly working on mainly in EC2 virtualization features pertaining to large scale harwdare acceleration(Ahem GPU, FPGA).
 This blog is an attempt at technical writing. I mostly write about things I recently discovered and found interesting.
-I am actively looking for full time opportunities in Systems programming.
 You can check out my [Linux Kernel patches](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=grep&q=amey+narkhede)
-to get some idea about my work. </br>
+to get some idea about my work(Update: about my work from my student days :)). </br>
 
 Feel free to reach me at:
 
