@@ -1,14 +1,15 @@
+name: Deploy Zola to GH Pages
 on: push
-name: Build and deploy on push
 jobs:
-  build:
-    name: shalzz/zola-deploy-action
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: shalzz/zola-deploy-action
-      uses: shalzz/zola-deploy-action@master
+      with:
+        submodules: true
+    - uses: zolacti/on@main
       env:
         PAGES_BRANCH: gh-pages
         BUILD_FLAGS: --drafts
         TOKEN: ${{ secrets.TOKEN }}
+        
