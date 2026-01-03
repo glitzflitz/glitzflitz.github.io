@@ -22,18 +22,17 @@ likely via sysfs, and allow a administrative user or device owner to have some a
 method priorities or exclusions.
 This feature aims to allow greater control of a device for use cases as device assignment, where specific device or
 platform issues may interact poorly with a given reset method, and for which device specific quirks have not been
-developed.
-" />
-  <meta name="twitter:image" content="https:&#x2F;&#x2F;glitzflitz.github.io&#x2F;james-sq.png" />
+developed." />
+  <meta name="twitter:image" content="https://glitzflitz.github.io/james-sq.png" />
 
 
 
       <title>Amey&#x27;s Midnight Musings</title>
 
       <!-- CSS -->
-      <link rel="stylesheet" href="https:&#x2F;&#x2F;glitzflitz.github.io&#x2F;print.css" media="print">
-      <link rel="stylesheet" href="https:&#x2F;&#x2F;glitzflitz.github.io&#x2F;poole.css">
-      <link rel="stylesheet" href="https:&#x2F;&#x2F;glitzflitz.github.io&#x2F;hyde.css">
+      <link rel="stylesheet" href="https://glitzflitz.github.io/print.css" media="print">
+      <link rel="stylesheet" href="https://glitzflitz.github.io/poole.css">
+      <link rel="stylesheet" href="https://glitzflitz.github.io/hyde.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 
       
@@ -47,7 +46,7 @@ developed.
     <body class="theme-base-1f ">
         
             <div class="sidebar">
-                <div class="container sidebar-sticky">
+                <div class="container ">
                     <div class="sidebar-about">
                         
                             <a href="https:&#x2F;&#x2F;glitzflitz.github.io"><h1>Amey&#x27;s Midnight Musings</h1></a>
@@ -61,8 +60,8 @@ developed.
                         
                         <!-- Manual navigation content -->
                         <hr>
-                        <li><a href="https:&#x2F;&#x2F;glitzflitz.github.io&#x2F;about">About</a></li>
-                        <li><a href="https:&#x2F;&#x2F;glitzflitz.github.io&#x2F;blog">Blog</a></li>
+                        <li><a href="https://glitzflitz.github.io/about">About</a></li>
+                        <li><a href="https://glitzflitz.github.io/blog">Blog</a></li>
                         <hr>
 
 
@@ -98,43 +97,40 @@ developed.</p>
 <p>The current policy of prioritizing reset methods is,
 Device specific reset -&gt; PCIe FLR(Function level reset) -&gt; PCI AF(Advanced Feature) FLR -&gt; Power Management reset -&gt; Slot reset -&gt; Bus reset. </br>
 The supported reset mechanisms are probed when device is added:</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">pci_init_capabilities()
-	pci_probe_reset_function()
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>pci_init_capabilities()
+</span><span>	pci_probe_reset_function()
 </span></code></pre>
 <p>Currently there is no way of knowing which reset methods are supported by the device for the userspace.
 The reset can be initiated by writing 1 to the <code>/sys/bus/pci/device/.../reset</code> sysfs attribute which will
 try resetting the device by using reset methods in an order mentioned in above policy.</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">pci_reset_function()
-	__pci_reset_function_locked()
-		pci_dev_specific_reset()
-		pcie_flr()
-		pci_af_flr()
-		pci_pm_reset()
-		pci_dev_reset_slot_function()
-		pci_parent_bus_reset()
-</span></code></pre><h2 id="proposed-change">Proposed Change</h2>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>pci_reset_function()
+</span><span>	__pci_reset_function_locked()
+</span><span>		pci_dev_specific_reset()
+</span><span>		pcie_flr()
+</span><span>		pci_af_flr()
+</span><span>		pci_pm_reset()
+</span><span>		pci_dev_reset_slot_function()
+</span><span>		pci_parent_bus_reset()
+</span></code></pre>
+<h2 id="proposed-change">Proposed Change</h2>
 <p>The <a href="https://lore.kernel.org/linux-pci/20210529192527.2708-1-ameynarkhede03@gmail.com/">patch series</a> introduces a new byte array in <code>struct pci_dev</code>
 to keep track of ordering of device supported reset methods.
 Initially when user has not set any preferred reset method or ordering of multiple reset methods,
 device supported reset methods are ordered by exisiting policy.</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;"> ➜  ~ cat /sys/bus/pci/devices/0000:02:00.0/reset_method
-flr,bus
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span> ➜  ~ cat /sys/bus/pci/devices/0000:02:00.0/reset_method
+</span><span>flr,bus
 </span></code></pre>
 <p>Writing any of the supported device reset method enables that method</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">➜  ~ echo bus,flr &gt; /sys/bus/pci/devices/0000:02:00.0/reset_method
-➜  ~ cat /sys/bus/pci/devices/0000:02:00.0/reset_method
-bus,flr                                                                                                                                                                                  ➜  ~
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>➜  ~ echo bus,flr &gt; /sys/bus/pci/devices/0000:02:00.0/reset_method
+</span><span>➜  ~ cat /sys/bus/pci/devices/0000:02:00.0/reset_method
+</span><span>bus,flr                                                                                                                                                                                  ➜  ~
 </span></code></pre>
 <p>Writing empty string to <code>reset_method</code> attribute will disable device from being reset while
 writing <code>default</code> will return to original value. To actually reset the device write
 <code>1</code> to exisiting <code>reset</code> sysfs attribute.</p>
-<pre style="background-color:#2b303b;">
-<code><span style="color:#c0c5ce;">➜  ~ echo 1 &gt; /sys/bus/pci/devices/0000:02:00.0/reset
-</span></code></pre></br>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>➜  ~ echo 1 &gt; /sys/bus/pci/devices/0000:02:00.0/reset
+</span></code></pre>
+</br>
 <h2 id="acknowledgements">Acknowledgements</h2>
 <p>During this LFX mentorship period I learned a lot from my mentor Alex who patiently
 explained me all the details including small and basic things while encouraging me to try different
