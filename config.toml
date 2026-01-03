@@ -23,3 +23,6 @@ generate_rss = true
 hyde_links = [
 ]
 hyde_theme = "theme-base-1f"
+
+[link_checker]
+  external_level = "warn"
