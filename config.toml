@@ -9,6 +9,7 @@ description = "Incredibly niche and unrelatable content"
 
 compile_sass = true
 
+[markdown]
 highlight_code = true
 
 build_search_index = true
